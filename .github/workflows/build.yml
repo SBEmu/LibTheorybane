@@ -1,0 +1,25 @@
+name: Node CI
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-node@v1
+      with:
+        node-version: 12.x
+    - name: npm install, build, and test
+      run: |
+        npm ci
+        npm run all
+      env:
+        CI: true
+    - name: Check for uncommitted changes
+      run: |
+        git add -N .
+        if git diff --stat HEAD | grep -P . ; then
+          echo "uncommitted changes detected, please npm run all and commit";
+          exit 1;
+        fi

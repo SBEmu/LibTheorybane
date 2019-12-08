@@ -1,5 +1,5 @@
 function run(): void {
-  console.log("Hello world!");
+  console.log('Hello world!')
 }
 
-run();
+run()
