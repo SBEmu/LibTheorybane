@@ -14,9 +14,12 @@ jobs:
       run: |
         npm ci
         npm run all
-        if [ $(git diff --stat | wc -l) -gt 0 ]; then
+      env:
+        CI: true
+    - name: Check for uncommitted changes
+      run: |
+        git add -N .
+        if git diff --stat HEAD | grep -P . ; then
           echo "uncommitted changes detected, please npm run all and commit";
           exit 1;
         fi
-      env:
-        CI: true
