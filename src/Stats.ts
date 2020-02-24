@@ -1,3 +1,5 @@
+import {Rune} from "./Rune";
+
 export class Stats {
     minDexterity: number = 35;
     _dexterity: number = 40;
@@ -57,5 +59,18 @@ export class Stats {
             throw "new value not within allowed limits for constitution"
         }
         this._constitution = value;
+    }
+
+    applyRune(rune: Rune) {
+        this.maxDexterity += rune.getMaxDexterityModifier();
+        this.dexterity += rune.getDexterityModifier();
+        this.maxStrength += rune.getMaxStrengthModifier();
+        this.strength += rune.getStrengthModifier();
+        this.maxIntelligence += rune.getMaxIntelligenceModifier();
+        this.intelligence += rune.getIntelligenceModifier();
+        this.maxSpirit += rune.getMaxSpiritModifier();
+        this.spirit += rune.getSpiritModifier();
+        this.maxConstitution += rune.getMaxConstitutionModifier();
+        this.constitution += rune.getConstitutionModifier();
     }
 }
