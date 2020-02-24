@@ -1,22 +1,56 @@
-import { Stats } from "./Stats";
-import {Rune} from "./Rune";
+import {Stats} from './Stats'
+import {Rune} from './Rune'
 
 export class Character {
-    stats: Stats = new Stats();
+  stats: Stats = new Stats()
 
-    addDexterity(dexterityToAdd: number) { this.stats.dexterity += dexterityToAdd }
-    addStrength(strengthToAdd: number) { this.stats.strength += strengthToAdd }
-    addIntelligence(intelligenceToAdd: number) { this.stats.intelligence += intelligenceToAdd }
-    addSpirit(spiritToAdd: number) { this.stats.spirit += spiritToAdd }
-    addConstitution(constitutionToAdd: number) { this.stats.constitution += constitutionToAdd }
+  //#region add stats
 
-    subtractDexterity(dexterityToSubtract: number) { this.stats.dexterity -= dexterityToSubtract }
-    subtractStrength(strengthToSubtract: number) { this.stats.strength -= strengthToSubtract }
-    subtractIntelligence(intelligenceToSubtract: number) { this.stats.intelligence -= intelligenceToSubtract }
-    subtractSpirit(spiritToSubtract: number) { this.stats.spirit -= spiritToSubtract }
-    subtractConstitution(constitutionToSubtract: number) { this.stats.constitution -= constitutionToSubtract }
+  addDexterity(dexterityToAdd: number): void {
+    this.stats.dexterity += dexterityToAdd
+  }
 
-    applyRune(rune: Rune) {
-        this.stats.applyRune(rune)
-    }
+  addStrength(strengthToAdd: number): void {
+    this.stats.strength += strengthToAdd
+  }
+
+  addIntelligence(intelligenceToAdd: number): void {
+    this.stats.intelligence += intelligenceToAdd
+  }
+
+  addSpirit(spiritToAdd: number): void {
+    this.stats.spirit += spiritToAdd
+  }
+
+  addConstitution(constitutionToAdd: number): void {
+    this.stats.constitution += constitutionToAdd
+  }
+
+  //#region subtract stats
+
+  subtractDexterity(dexterityToSubtract: number): void {
+    this.stats.dexterity -= dexterityToSubtract
+  }
+
+  subtractStrength(strengthToSubtract: number): void {
+    this.stats.strength -= strengthToSubtract
+  }
+
+  subtractIntelligence(intelligenceToSubtract: number): void {
+    this.stats.intelligence -= intelligenceToSubtract
+  }
+
+  subtractSpirit(spiritToSubtract: number): void {
+    this.stats.spirit -= spiritToSubtract
+  }
+
+  subtractConstitution(constitutionToSubtract: number): void {
+    this.stats.constitution -= constitutionToSubtract
+  }
+
+  //#region runes
+
+  applyRune(rune: Rune): void {
+    this.stats.applyRune(rune)
+  }
 }
