@@ -52,6 +52,20 @@ npm run build
 npm run test
 ```
 
+## Done and todo:
+* [x] Basic stats
+* [x] Basic rune implementation
+* [ ] Ability points calculation
+* [ ] Skill point calculation/training
+* [ ] Powers
+* [ ] Equipment (prerequisites and bonuses)
+* [ ] Effects
+* [ ] Character attributes
+  * [ ] HP/Mana/Stamina
+  * [ ] Resistances
+  * [ ] Weapon damage (styled, plain)
+  * [ ] Spell damage by spell
+
 ## Contributing
 
 Contributions are welcome. Prior to contributing large changes, please have a quick discussion with us by opening an issue to confirm
