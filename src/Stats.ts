@@ -26,7 +26,9 @@ export class Stats {
   }
   set dexterity(value: number) {
     if (value < this.minDexterity || value > this.maxDexterity) {
-      throw new Error('new value not within allowed limits for dexterity')
+      throw new StatLimitError(
+        'new value not within allowed limits for dexterity'
+      )
     }
     this._dexterity = value
   }
@@ -36,7 +38,9 @@ export class Stats {
   }
   set strength(value: number) {
     if (value < this.minStrength || value > this.maxStrength) {
-      throw new Error('new value not within allowed limits for strength')
+      throw new StatLimitError(
+        'new value not within allowed limits for strength'
+      )
     }
     this._strength = value
   }
@@ -46,7 +50,9 @@ export class Stats {
   }
   set intelligence(value: number) {
     if (value < this.minIntelligence || value > this.maxIntelligence) {
-      throw new Error('new value not within allowed limits for intelligence')
+      throw new StatLimitError(
+        'new value not within allowed limits for intelligence'
+      )
     }
     this._intelligence = value
   }
@@ -56,7 +62,7 @@ export class Stats {
   }
   set spirit(value: number) {
     if (value < this.minSpirit || value > this.maxSpirit) {
-      throw new Error('new value not within allowed limits for spirit')
+      throw new StatLimitError('new value not within allowed limits for spirit')
     }
     this._spirit = value
   }
@@ -66,7 +72,9 @@ export class Stats {
   }
   set constitution(value: number) {
     if (value < this.minConstitution || value > this.maxConstitution) {
-      throw new Error('new value not within allowed limits for constitution')
+      throw new StatLimitError(
+        'new value not within allowed limits for constitution'
+      )
     }
     this._constitution = value
   }
@@ -84,3 +92,5 @@ export class Stats {
     this.constitution += rune.getConstitutionModifier()
   }
 }
+
+export class StatLimitError extends Error {}

@@ -1,4 +1,13 @@
+import {Bonuses} from './Bonuses'
+
+interface RuneJson {
+  bonuses: any
+}
+
 export class Rune {
+  private abilityPointCost: number = 0
+  private isCreationOnlyRune: boolean = false
+
   private maxDexterityModifier: number = 0
   private dexterityModifier: number = 0
   private maxStrengthModifier: number = 0
@@ -10,9 +19,22 @@ export class Rune {
   private maxConstitutionModifier: number = 0
   private constitutionModifier: number = 0
 
-  static fromJSON(json: object): Rune {
+  private bonuses: Bonuses = new Bonuses()
+
+  static fromJSON(json: RuneJson): Rune {
     const rune = new Rune()
-    return Object.assign(rune, json)
+
+    return Object.assign(rune, json, {
+      bonuses: Bonuses.fromJSON(json.bonuses)
+    })
+  }
+
+  getAbilityPointCost(): number {
+    return this.abilityPointCost
+  }
+
+  getIsCreationOnlyRune(): boolean {
+    return this.isCreationOnlyRune
   }
 
   getDexterityModifier(): number {
@@ -53,5 +75,9 @@ export class Rune {
 
   getMaxConstitutionModifier(): number {
     return this.maxConstitutionModifier
+  }
+
+  getBonuses(): Bonuses {
+    return this.bonuses
   }
 }
