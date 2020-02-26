@@ -3,7 +3,7 @@ export class Bonuses {
   private level11To59Trains: number = 0
   private postCreationAbilityPoints: number = 0
 
-  static fromJSON(json: any): Bonuses {
+  static fromJSON(json: object): Bonuses {
     const bonuses = new Bonuses()
     return Object.assign(bonuses, json)
   }

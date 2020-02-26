@@ -1,7 +1,10 @@
 import {Stats} from './Stats'
 import {Rune} from './Rune'
 import {Bonuses} from './Bonuses'
-import {PointUtils} from './Util/PointUtils'
+import {
+  getTrainsForLevelIncrease,
+  getAbilityPointsForLevelIncrease
+} from './Util/PointUtils'
 
 export class Character {
   readonly stats: Stats = new Stats()
@@ -110,15 +113,12 @@ export class Character {
       throw new LevelError('provided level is greater than max level')
     }
 
-    if (this.level == 1) {
+    if (this.level === 1) {
       this._endCreation()
     }
 
-    this.abilityPoints += PointUtils.getAbilityPointsForLevelIncreaase(
-      this.level,
-      level
-    )
-    this.trainingPoints += PointUtils.getTrainsForLevelIncrease(
+    this.abilityPoints += getAbilityPointsForLevelIncrease(this.level, level)
+    this.trainingPoints += getTrainsForLevelIncrease(
       this.level,
       level,
       this.bonuses
@@ -126,7 +126,7 @@ export class Character {
     this.level = level
   }
 
-  private _endCreation() {
+  private _endCreation(): void {
     this.abilityPoints += this.bonuses.getPostCreationAbilityPoints()
   }
 

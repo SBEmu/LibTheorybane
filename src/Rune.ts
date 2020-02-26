@@ -1,7 +1,7 @@
 import {Bonuses} from './Bonuses'
 
 interface RuneJson {
-  bonuses: any
+  bonuses: object
 }
 
 export class Rune {
