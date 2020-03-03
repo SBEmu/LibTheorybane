@@ -2,6 +2,7 @@
   "name": "@sbemu/libtheorybane",
   "version": "0.1.1",
   "description": "Library for Theorybane character calculator",
+  "homepage": "https://github.com/SBEmu/LibTheorybane",
   "main": "lib/main.js",
   "types": "lib/main.d.ts",
   "scripts": {
