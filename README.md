@@ -74,4 +74,4 @@ that the change would be desirable.
 
 If you add new functionality, please add tests. Contributions are required to have the CI and all tests pass in the pull request prior to merge.
 
-Incoming changes have TSlint and Prettier run against them as well: if there are changes that are not checked in after Prettier/TSlint run then the pipeline will fail. Run `npm run build && npm run format && npm run lint && npm run pack && npm test` locally, fix any failures, and check in any changes prior to pushing.
+Incoming changes have TSlint and Prettier run against them as well: if there are changes that are not checked in after Prettier/TSlint run then the pipeline will fail. Run `npm run all` locally, fix any failures, and check in any changes prior to pushing.
