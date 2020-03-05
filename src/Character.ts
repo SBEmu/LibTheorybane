@@ -12,6 +12,7 @@ export class Character {
   readonly bonuses: Bonuses = new Bonuses()
   private abilityPoints: number = 30
   private level: number = 1
+  private isCreating: boolean = true
   private trainingPoints: number = 0
 
   //region add stats
@@ -90,7 +91,7 @@ export class Character {
       throw new AbilityPointError('too few points to apply rune')
     }
 
-    if (rune.getIsCreationOnlyRune() && this.level > 1) {
+    if (rune.getIsCreationOnlyRune() && !this.isCreating) {
       throw new LevelError('cannot apply creation runes after creation')
     }
 
@@ -128,6 +129,7 @@ export class Character {
   }
 
   private _endCreation(): void {
+    this.isCreating = false
     this.abilityPoints += this.bonuses.getPostCreationAbilityPoints()
   }
 
@@ -135,15 +137,11 @@ export class Character {
     return this.abilityPoints
   }
 
-  getTotalAbilityPoints(): number {
-    return getTrainsForLevel(this.level, this.bonuses)
-  }
-
   getTrainingPoints(): number {
     return this.trainingPoints
   }
 
-  getTotalTrainingPOints(): number {
+  getTotalTrainingPoints(): number {
     return getTrainsForLevel(this.level, this.bonuses)
   }
 }
