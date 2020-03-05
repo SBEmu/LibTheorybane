@@ -3,7 +3,7 @@ import {Rune} from './Rune'
 import {Bonuses} from './Bonuses'
 import {
   getTrainsForLevelIncrease,
-  getAbilityPointsForLevelIncrease
+  getAbilityPointsForLevelIncrease, getTrainsForLevel
 } from './Util/PointUtils'
 
 export class Character {
@@ -134,8 +134,16 @@ export class Character {
     return this.abilityPoints
   }
 
+  getTotalAbilityPoints(): number {
+    return getTrainsForLevel(this.level, this.bonuses)
+  }
+
   getTrainingPoints(): number {
     return this.trainingPoints
+  }
+
+  getTotalTrainingPOints(): number {
+    return getTrainsForLevel(this.level, this.bonuses)
   }
 }
 
