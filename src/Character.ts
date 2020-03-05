@@ -3,7 +3,8 @@ import {Rune} from './Rune'
 import {Bonuses} from './Bonuses'
 import {
   getTrainsForLevelIncrease,
-  getAbilityPointsForLevelIncrease, getTrainsForLevel
+  getAbilityPointsForLevelIncrease,
+  getTrainsForLevel
 } from './Util/PointUtils'
 
 export class Character {
