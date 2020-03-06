@@ -1,9 +1,8 @@
-name: CI and publish
+name: Publish
 
 on:
-  push:
-    branches:
-      - master
+  release:
+    types: [created]
 
 jobs:
   build:
@@ -14,8 +13,7 @@ jobs:
         with:
           node-version: 12.x
       - run: npm ci
-      - run: npm version
-      - run: git push
+      - run: npm test
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
