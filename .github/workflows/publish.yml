@@ -10,10 +10,10 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: actions/setup-node@v1
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
         with:
           node-version: 12.x
       - run: npm ci
       - run: npm test
       - run: npm publish
-        env:
-          NODE_AUTH_TOKEN: ${{secrets.npm_token}}
