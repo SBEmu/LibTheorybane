@@ -5,19 +5,19 @@ interface RuneJson {
 }
 
 export class Rune {
-  private abilityPointCost: number = 0
-  private isCreationOnlyRune: boolean = false
+  private abilityPointCost = 0
+  private isCreationOnlyRune = false
 
-  private maxDexterityModifier: number = 0
-  private dexterityModifier: number = 0
-  private maxStrengthModifier: number = 0
-  private strengthModifier: number = 0
-  private maxIntelligenceModifier: number = 0
-  private intelligenceModifier: number = 0
-  private maxSpiritModifier: number = 0
-  private spiritModifier: number = 0
-  private maxConstitutionModifier: number = 0
-  private constitutionModifier: number = 0
+  private maxDexterityModifier = 0
+  private dexterityModifier = 0
+  private maxStrengthModifier = 0
+  private strengthModifier = 0
+  private maxIntelligenceModifier = 0
+  private intelligenceModifier = 0
+  private maxSpiritModifier = 0
+  private spiritModifier = 0
+  private maxConstitutionModifier = 0
+  private constitutionModifier = 0
 
   private bonuses: Bonuses = new Bonuses()
 

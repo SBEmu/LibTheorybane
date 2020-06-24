@@ -1,13 +1,13 @@
 import {AbilityPointError, Character, LevelError} from '../src/Character'
 import {Rune} from '../src/Rune'
-import {StatLimitError} from '../src/Stats'
+import {StatLimitError} from '../src/Stat'
 
 let character: Character
 beforeEach(() => (character = new Character()))
 
 test('fresh character ability points', () => {
-  expect(character.stats.intelligence).toEqual(40)
-  expect(character.stats.maxIntelligence).toEqual(100)
+  expect(character.stats.intelligence.value).toEqual(40)
+  expect(character.stats.intelligence.max).toEqual(100)
   expect(character.getAbilityPoints()).toEqual(30)
 })
 
@@ -29,39 +29,39 @@ test('post creation bonus ability points', () => {
 })
 
 test('subtract points succeeds', () => {
-  character.subtractIntelligence(1)
-  expect(character.stats.intelligence).toEqual(39)
+  character.stats.intelligence.subtract(1)
+  expect(character.stats.intelligence.value).toEqual(39)
   expect(character.getAbilityPoints()).toEqual(31)
 })
 
 test('subtract too many points fails', () => {
-  expect(() => character.subtractIntelligence(6)).toThrow(StatLimitError)
+  expect(() => character.stats.intelligence.subtract(6)).toThrow(StatLimitError)
   expect(character.getAbilityPoints()).toEqual(30)
 })
 
 test('add points succeeds', () => {
-  character.addIntelligence(1)
-  expect(character.stats.intelligence).toEqual(41)
+  character.stats.intelligence.add(1)
+  expect(character.stats.intelligence.value).toEqual(41)
   expect(character.getAbilityPoints()).toEqual(29)
 })
 
 test('add nonexistent points fails', () => {
-  character.addIntelligence(30)
-  expect(() => character.addIntelligence(1)).toThrow(AbilityPointError)
+  character.stats.intelligence.add(30)
+  expect(() => character.stats.intelligence.add(1)).toThrow(AbilityPointError)
   expect(character.getAbilityPoints()).toEqual(0)
 })
 
 test('add too many points fails', () => {
   character.setLevel(75)
-  expect(() => character.addIntelligence(61)).toThrow(StatLimitError)
+  expect(() => character.stats.intelligence.add(61)).toThrow(StatLimitError)
 })
 
 test('adding rune changes stats', () => {
   const rune = Rune.fromJSON(JSON.parse('{"intelligenceModifier": 10}'))
   character.applyRune(rune)
 
-  expect(character.stats.intelligence).toEqual(50)
-  expect(character.stats.maxIntelligence).toEqual(100)
+  expect(character.stats.intelligence.value).toEqual(50)
+  expect(character.stats.intelligence.max).toEqual(100)
 })
 
 test('adding rune with point requirements succeeds', () => {
@@ -70,7 +70,7 @@ test('adding rune with point requirements succeeds', () => {
   )
   character.applyRune(rune)
   expect(character.getAbilityPoints()).toEqual(0)
-  expect(character.stats.intelligence).toEqual(70)
+  expect(character.stats.intelligence.value).toEqual(70)
 })
 
 test('adding rune with too many point requirements fails', () => {
@@ -79,7 +79,7 @@ test('adding rune with too many point requirements fails', () => {
   )
   expect(() => character.applyRune(rune)).toThrow(AbilityPointError)
   expect(character.getAbilityPoints()).toEqual(30)
-  expect(character.stats.intelligence).toEqual(40)
+  expect(character.stats.intelligence.value).toEqual(40)
 })
 
 test('backward level throws', () => {

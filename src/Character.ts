@@ -8,83 +8,25 @@ import {
 } from './Util/PointUtils'
 
 export class Character {
-  readonly stats: Stats = new Stats()
-  readonly bonuses: Bonuses = new Bonuses()
-  private abilityPoints: number = 30
-  private level: number = 1
-  private isCreating: boolean = true
-  private trainingPoints: number = 0
+  readonly stats: Stats
+  readonly bonuses: Bonuses
+  private abilityPoints = 30
+  private trainingPoints = 0
+  private level = 1
+  private isCreating = true
 
-  //region add stats
+  constructor() {
+    this.stats = new Stats(this)
+    this.bonuses = new Bonuses()
+  }
 
-  addDexterity(dexterityToAdd: number): void {
-    if (dexterityToAdd > this.abilityPoints) {
+  allocateStats(statsToAdd: number): void {
+    if (statsToAdd > this.abilityPoints) {
       throw new AbilityPointError('not enough points remaining')
     }
-    this.abilityPoints -= dexterityToAdd
-    this.stats.dexterity += dexterityToAdd
+
+    this.abilityPoints -= statsToAdd
   }
-
-  addStrength(strengthToAdd: number): void {
-    if (strengthToAdd > this.abilityPoints) {
-      throw new AbilityPointError('not enough points remaining')
-    }
-    this.abilityPoints -= strengthToAdd
-    this.stats.strength += strengthToAdd
-  }
-
-  addIntelligence(intelligenceToAdd: number): void {
-    if (intelligenceToAdd > this.abilityPoints) {
-      throw new AbilityPointError('not enough points remaining')
-    }
-    this.abilityPoints -= intelligenceToAdd
-    this.stats.intelligence += intelligenceToAdd
-  }
-
-  addSpirit(spiritToAdd: number): void {
-    if (spiritToAdd > this.abilityPoints) {
-      throw new AbilityPointError('not enough points remaining')
-    }
-    this.abilityPoints -= spiritToAdd
-    this.stats.spirit += spiritToAdd
-  }
-
-  addConstitution(constitutionToAdd: number): void {
-    if (constitutionToAdd > this.abilityPoints) {
-      throw new AbilityPointError('not enough points remaining')
-    }
-    this.abilityPoints -= constitutionToAdd
-    this.stats.constitution += constitutionToAdd
-  }
-
-  //region subtract stats
-
-  subtractDexterity(dexterityToSubtract: number): void {
-    this.stats.dexterity -= dexterityToSubtract
-    this.abilityPoints += dexterityToSubtract
-  }
-
-  subtractStrength(strengthToSubtract: number): void {
-    this.stats.strength -= strengthToSubtract
-    this.abilityPoints += strengthToSubtract
-  }
-
-  subtractIntelligence(intelligenceToSubtract: number): void {
-    this.stats.intelligence -= intelligenceToSubtract
-    this.abilityPoints += intelligenceToSubtract
-  }
-
-  subtractSpirit(spiritToSubtract: number): void {
-    this.stats.spirit -= spiritToSubtract
-    this.abilityPoints += spiritToSubtract
-  }
-
-  subtractConstitution(constitutionToSubtract: number): void {
-    this.stats.constitution -= constitutionToSubtract
-    this.abilityPoints += constitutionToSubtract
-  }
-
-  //region runes
 
   applyRune(rune: Rune): void {
     if (this.abilityPoints - rune.getAbilityPointCost() < 0) {
@@ -99,8 +41,6 @@ export class Character {
     this.bonuses.addBonuses(rune.getBonuses())
     this.stats.applyRune(rune)
   }
-
-  //region levels and points
 
   endCreation(): void {
     this.setLevel(10)
@@ -130,6 +70,7 @@ export class Character {
 
   private _endCreation(): void {
     this.isCreating = false
+    this.stats.endCreation()
     this.abilityPoints += this.bonuses.getPostCreationAbilityPoints()
   }
 
