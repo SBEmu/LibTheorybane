@@ -1,96 +1,83 @@
 import {Rune} from './Rune'
+import {Stat} from './Stat'
+import {Character} from './Character'
 
 export class Stats {
-  minDexterity: number = 35
-  _dexterity: number = 40
-  maxDexterity: number = 100
+  private readonly _dexterity: StatInternal
+  private readonly _strength: StatInternal
+  private readonly _intelligence: StatInternal
+  private readonly _spirit: StatInternal
+  private readonly _constitution: StatInternal
 
-  minStrength: number = 35
-  _strength: number = 40
-  maxStrength: number = 100
+  constructor(character: Character) {
+    this._dexterity = new StatInternal(character)
+    this._strength = new StatInternal(character)
+    this._intelligence = new StatInternal(character)
+    this._spirit = new StatInternal(character)
+    this._constitution = new StatInternal(character)
+  }
 
-  minIntelligence: number = 35
-  _intelligence: number = 40
-  maxIntelligence: number = 100
-
-  minSpirit: number = 35
-  _spirit: number = 40
-  maxSpirit: number = 100
-
-  minConstitution: number = 35
-  _constitution: number = 40
-  maxConstitution: number = 100
-
-  get dexterity(): number {
+  get dexterity(): Stat {
     return this._dexterity
   }
-  set dexterity(value: number) {
-    if (value < this.minDexterity || value > this.maxDexterity) {
-      throw new StatLimitError(
-        'new value not within allowed limits for dexterity'
-      )
-    }
-    this._dexterity = value
-  }
 
-  get strength(): number {
+  get strength(): Stat {
     return this._strength
   }
-  set strength(value: number) {
-    if (value < this.minStrength || value > this.maxStrength) {
-      throw new StatLimitError(
-        'new value not within allowed limits for strength'
-      )
-    }
-    this._strength = value
-  }
 
-  get intelligence(): number {
+  get intelligence(): Stat {
     return this._intelligence
   }
-  set intelligence(value: number) {
-    if (value < this.minIntelligence || value > this.maxIntelligence) {
-      throw new StatLimitError(
-        'new value not within allowed limits for intelligence'
-      )
-    }
-    this._intelligence = value
-  }
 
-  get spirit(): number {
+  get spirit(): Stat {
     return this._spirit
   }
-  set spirit(value: number) {
-    if (value < this.minSpirit || value > this.maxSpirit) {
-      throw new StatLimitError('new value not within allowed limits for spirit')
-    }
-    this._spirit = value
-  }
 
-  get constitution(): number {
+  get constitution(): Stat {
     return this._constitution
-  }
-  set constitution(value: number) {
-    if (value < this.minConstitution || value > this.maxConstitution) {
-      throw new StatLimitError(
-        'new value not within allowed limits for constitution'
-      )
-    }
-    this._constitution = value
   }
 
   applyRune(rune: Rune): void {
-    this.maxDexterity += rune.getMaxDexterityModifier()
-    this.dexterity += rune.getDexterityModifier()
-    this.maxStrength += rune.getMaxStrengthModifier()
-    this.strength += rune.getStrengthModifier()
-    this.maxIntelligence += rune.getMaxIntelligenceModifier()
-    this.intelligence += rune.getIntelligenceModifier()
-    this.maxSpirit += rune.getMaxSpiritModifier()
-    this.spirit += rune.getSpiritModifier()
-    this.maxConstitution += rune.getMaxConstitutionModifier()
-    this.constitution += rune.getConstitutionModifier()
+    this._dexterity.max = this._dexterity.max + rune.getMaxDexterityModifier()
+    this._dexterity.value += rune.getDexterityModifier()
+    this._strength.max += rune.getMaxStrengthModifier()
+    this._strength.value += rune.getStrengthModifier()
+    this._intelligence.max += rune.getMaxIntelligenceModifier()
+    this._intelligence.value += rune.getIntelligenceModifier()
+    this._spirit.max += rune.getMaxSpiritModifier()
+    this._spirit.value += rune.getSpiritModifier()
+    this._constitution.max += rune.getMaxConstitutionModifier()
+    this._constitution.value += rune.getConstitutionModifier()
+  }
+
+  endCreation(): void {
+    this._dexterity.min = 40
+    this._strength.min = 40
+    this._intelligence.min = 40
+    this._spirit.min = 40
+    this._constitution.min = 40
   }
 }
 
-export class StatLimitError extends Error {}
+class StatInternal extends Stat {
+  get min(): number {
+    return super.min
+  }
+  set min(value: number) {
+    this._min = value
+  }
+
+  get max(): number {
+    return super.max
+  }
+  set max(value: number) {
+    this._max = value
+  }
+
+  get value(): number {
+    return super.value
+  }
+  set value(value: number) {
+    this._value = value
+  }
+}

@@ -1,7 +1,7 @@
 export class Bonuses {
-  private level1To10Trains: number = 0
-  private level11To59Trains: number = 0
-  private postCreationAbilityPoints: number = 0
+  private level1To10Trains = 0
+  private level11To59Trains = 0
+  private postCreationAbilityPoints = 0
 
   static fromJSON(json: object): Bonuses {
     const bonuses = new Bonuses()
